@@ -1,1 +1,1 @@
-mvn spring-boot:run
+web: java -jar target/image-translator.jar

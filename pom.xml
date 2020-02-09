@@ -12,7 +12,7 @@
   <groupId>com.urchinsys</groupId>
   <artifactId>image-translator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>image-translator</name>
   <description>Image Translator API</description>
 
@@ -122,6 +122,7 @@
   </dependencyManagement>
 
   <build>
+    <finalName>image-translator</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
