@@ -6,7 +6,6 @@ import com.urchinsys.imagetranslator.service.OcrService;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Optional;
 import org.apache.commons.io.FileUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -37,7 +36,7 @@ public class ImageController {
     return ResponseEntity.ok(Base64.encodeBase64String(bytes));
   }
 
-  @RequestMapping(path = "translate", method = RequestMethod.POST)
+  @RequestMapping(path = "toText", method = RequestMethod.POST)
   public ResponseEntity<ImageTextDto> uploadImage(@RequestBody ImageDto imageDto)
       throws NotFoundException, IOException {
     Optional<ImageTextDto> imageTextDto = ocrService.recognizeTextOnImage(imageDto);
