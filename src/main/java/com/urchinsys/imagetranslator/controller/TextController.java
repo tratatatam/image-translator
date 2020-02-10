@@ -1,6 +1,5 @@
 package com.urchinsys.imagetranslator.controller;
 
-import com.github.vbauer.yta.model.Translation;
 import com.urchinsys.imagetranslator.dto.TextDto;
 import com.urchinsys.imagetranslator.dto.TranslationDto;
 import com.urchinsys.imagetranslator.service.TranslateService;
