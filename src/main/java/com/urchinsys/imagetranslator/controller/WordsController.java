@@ -5,7 +5,7 @@ import com.urchinsys.imagetranslator.service.DictionaryService;
 import java.util.Optional;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,10 +19,10 @@ public class WordsController {
     this.dictionaryService = dictionaryService;
   }
 
-  @RequestMapping(path = "meaning", method = RequestMethod.POST)
-  public ResponseEntity<WordDefinitionDto> uploadImage(@RequestBody String word)
+  @RequestMapping(path = "meaning/{word}", method = RequestMethod.POST)
+  public ResponseEntity<WordDefinitionDto> uploadImage(@PathVariable String word)
       throws NotFoundException {
-    Optional<WordDefinitionDto> translation = dictionaryService.meaning(word);
-    return translation.map(ResponseEntity::ok).orElseThrow(NotFoundException::new);
+    Optional<WordDefinitionDto> definitionDto = dictionaryService.meaning(word);
+    return definitionDto.map(ResponseEntity::ok).orElseThrow(NotFoundException::new);
   }
 }

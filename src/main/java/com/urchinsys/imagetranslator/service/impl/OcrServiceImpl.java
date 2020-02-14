@@ -1,7 +1,6 @@
 package com.urchinsys.imagetranslator.service.impl;
 
 import com.cloudmersive.client.ImageOcrApi;
-import com.cloudmersive.client.invoker.ApiClient;
 import com.cloudmersive.client.invoker.ApiException;
 import com.cloudmersive.client.model.ImageToTextResponse;
 import com.urchinsys.imagetranslator.dto.ImageDto;

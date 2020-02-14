@@ -2,6 +2,7 @@ package com.urchinsys.imagetranslator.config;
 
 import com.cloudmersive.client.invoker.ApiClient;
 import com.cloudmersive.client.invoker.auth.ApiKeyAuth;
+import com.urchinsys.imagetranslator.converter.WordsApiResponseToWordDefinitionDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,8 @@ public class BeanConfig {
 
   @Bean
   public ModelMapper modelMapper() {
-    return new ModelMapper();
+    ModelMapper modelMapper = new ModelMapper();
+    modelMapper.addConverter(new WordsApiResponseToWordDefinitionDto());
+    return modelMapper;
   }
 }
