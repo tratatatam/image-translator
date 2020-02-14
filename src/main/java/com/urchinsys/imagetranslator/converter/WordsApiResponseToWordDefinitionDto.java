@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.squareup.okhttp.Response;
 import com.urchinsys.imagetranslator.dto.WordApiResponseDto;
 import com.urchinsys.imagetranslator.dto.WordDefinitionDto;
+import com.urchinsys.imagetranslator.exception.WordWasntFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +32,11 @@ public class WordsApiResponseToWordDefinitionDto implements Converter<Response, 
       Optional<JsonElement> word = getJsonElementByKey(json, "word");
       word.ifPresent(e -> definitionDto.setWord(e.getAsString()));
 
-      Optional<JsonElement> pronunciation = getJsonElementByKey(json.get("pronunciation").getAsJsonObject(), "all");
-      pronunciation.ifPresent(p -> definitionDto.setPronunciation(p.getAsString()));
-
       Optional<JsonElement> frequency = getJsonElementByKey(json, "frequency");
       frequency.ifPresent(f -> definitionDto.setFrequency(f.getAsFloat()));
 
-      JsonArray results = json.getAsJsonArray("results");
+      Optional<JsonArray> resultsResponse = Optional.ofNullable(json.getAsJsonArray("results"));
+      JsonArray results = resultsResponse.orElseThrow(WordWasntFoundException::new);
       var wordsApi = new ArrayList<WordApiResponseDto>();
       results.forEach(r -> wordsApi.add(getWordApiResponse(r.getAsJsonObject())));
       definitionDto.setResponses(wordsApi);
