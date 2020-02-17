@@ -2,6 +2,7 @@ package com.urchinsys.imagetranslator.controller;
 
 import com.urchinsys.imagetranslator.entity.History;
 import com.urchinsys.imagetranslator.service.HistoryService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,18 @@ public class HistoryController {
 
   public HistoryController(HistoryService historyService) {
     this.historyService = historyService;
+  }
+
+  @GetMapping
+  public ResponseEntity<List<History>> getAllHistory() {
+    List<History> persisted = historyService.getAll();
+    return new ResponseEntity<>(persisted, HttpStatus.OK);
+  }
+
+  @GetMapping(path = "collection/{name}")
+  public ResponseEntity<List<History>> getAllHistory(@PathVariable String name) {
+    List<History> persisted = historyService.getByCollection(name);
+    return new ResponseEntity<>(persisted, HttpStatus.OK);
   }
 
   @GetMapping(path = "{id}")

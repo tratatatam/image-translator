@@ -3,6 +3,7 @@ package com.urchinsys.imagetranslator.service.impl;
 import com.urchinsys.imagetranslator.entity.History;
 import com.urchinsys.imagetranslator.repository.HistoryRepo;
 import com.urchinsys.imagetranslator.service.HistoryService;
+import java.util.List;
 import java.util.Optional;
 import javax.validation.constraints.NotEmpty;
 import lombok.NonNull;
@@ -43,5 +44,15 @@ public class HistoryServiceImpl implements HistoryService {
   @Override
   public Optional<History> get(String id) {
     return historyRepo.findById(id);
+  }
+
+  @Override
+  public List<History> getAll() {
+    return historyRepo.findAll();
+  }
+
+  @Override
+  public List<History> getByCollection(String collection) {
+    return historyRepo.findAllByCollection(collection);
   }
 }
