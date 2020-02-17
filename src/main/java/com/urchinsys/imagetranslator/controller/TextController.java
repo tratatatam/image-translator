@@ -1,7 +1,7 @@
 package com.urchinsys.imagetranslator.controller;
 
-import com.urchinsys.imagetranslator.dto.TextDto;
-import com.urchinsys.imagetranslator.dto.TranslationDto;
+import com.urchinsys.imagetranslator.entity.Text;
+import com.urchinsys.imagetranslator.entity.Translation;
 import com.urchinsys.imagetranslator.service.TranslateService;
 import java.util.Optional;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
@@ -21,9 +21,9 @@ public class TextController {
   }
 
   @RequestMapping(path = "translate", method = RequestMethod.POST)
-  public ResponseEntity<TranslationDto> uploadImage(@RequestBody TextDto textDto)
+  public ResponseEntity<Translation> uploadImage(@RequestBody Text text)
       throws NotFoundException {
-    Optional<TranslationDto> translation = translateService.translate(textDto);
+    Optional<Translation> translation = translateService.translate(text);
     return translation.map(ResponseEntity::ok).orElseThrow(NotFoundException::new);
   }
 }

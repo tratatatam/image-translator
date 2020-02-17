@@ -1,7 +1,7 @@
 package com.urchinsys.imagetranslator.service.impl;
 
 import com.squareup.okhttp.Response;
-import com.urchinsys.imagetranslator.dto.WordDefinitionDto;
+import com.urchinsys.imagetranslator.entity.WordDefinition;
 import com.urchinsys.imagetranslator.service.DictionaryService;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
@@ -19,9 +19,9 @@ public class WordsDictionaryServiceImpl implements DictionaryService {
   }
 
   @Override
-  public Optional<WordDefinitionDto> meaning(String word) {
+  public Optional<WordDefinition> meaning(String word) {
     Response response = client.getResponse(word);
-    WordDefinitionDto responseDto = modelMapper.map(response, WordDefinitionDto.class);
+    WordDefinition responseDto = modelMapper.map(response, WordDefinition.class);
     return Optional.of(responseDto);
   }
 }

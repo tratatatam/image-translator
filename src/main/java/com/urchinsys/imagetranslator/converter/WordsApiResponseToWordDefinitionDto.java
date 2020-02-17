@@ -5,8 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.Response;
-import com.urchinsys.imagetranslator.dto.WordApiResponseDto;
-import com.urchinsys.imagetranslator.dto.WordDefinitionDto;
+import com.urchinsys.imagetranslator.entity.WordApiResponse;
+import com.urchinsys.imagetranslator.entity.WordDefinition;
 import com.urchinsys.imagetranslator.exception.WordWasntFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,12 +17,12 @@ import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WordsApiResponseToWordDefinitionDto implements Converter<Response, WordDefinitionDto> {
+public class WordsApiResponseToWordDefinitionDto implements Converter<Response, WordDefinition> {
 
   @Override
-  public WordDefinitionDto convert(MappingContext<Response, WordDefinitionDto> context) {
+  public WordDefinition convert(MappingContext<Response, WordDefinition> context) {
     Response src = context.getSource();
-    WordDefinitionDto definitionDto = new WordDefinitionDto();
+    WordDefinition definitionDto = new WordDefinition();
 
     try {
       String body = src.body().string();
@@ -37,7 +37,7 @@ public class WordsApiResponseToWordDefinitionDto implements Converter<Response, 
 
       Optional<JsonArray> resultsResponse = Optional.ofNullable(json.getAsJsonArray("results"));
       JsonArray results = resultsResponse.orElseThrow(WordWasntFoundException::new);
-      var wordsApi = new ArrayList<WordApiResponseDto>();
+      var wordsApi = new ArrayList<WordApiResponse>();
       results.forEach(r -> wordsApi.add(getWordApiResponse(r.getAsJsonObject())));
       definitionDto.setResponses(wordsApi);
     } catch (IOException e) {
@@ -46,8 +46,8 @@ public class WordsApiResponseToWordDefinitionDto implements Converter<Response, 
     return definitionDto;
   }
 
-  private WordApiResponseDto getWordApiResponse(JsonObject each) {
-    var wordApiResponseDto = new WordApiResponseDto();
+  private WordApiResponse getWordApiResponse(JsonObject each) {
+    var wordApiResponseDto = new WordApiResponse();
     Optional<JsonElement> definition = getJsonElementByKey(each, "definition");
     definition.ifPresent(d -> wordApiResponseDto.setDefinition(d.getAsString()));
 

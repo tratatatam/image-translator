@@ -1,4 +1,4 @@
-package com.urchinsys.imagetranslator.dto;
+package com.urchinsys.imagetranslator.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(Include.NON_EMPTY)
-public class WordDefinitionDto {
-  private String word;
-  private List<WordApiResponseDto> responses;
-  private Float frequency;
+public class WordApiResponse {
+
+  private String definition;
+  private String partOfSpeech;
+  private List<String> examples;
+  private List<String> synonyms;
+  private List<String> antonyms;
 }
