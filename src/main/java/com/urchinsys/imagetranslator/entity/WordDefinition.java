@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(Include.NON_EMPTY)
 public class WordDefinition {
   private String word;
+  private String wordTranslation;
   private List<WordApiResponse> responses;
   private Float frequency;
 }

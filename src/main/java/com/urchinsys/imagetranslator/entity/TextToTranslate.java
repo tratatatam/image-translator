@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_EMPTY)
-public class Text {
-
+public class TextToTranslate {
   private String text;
   private String targetLanguage;
 }

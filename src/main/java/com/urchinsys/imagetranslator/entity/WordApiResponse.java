@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(Include.NON_EMPTY)
 public class WordApiResponse {
-
   private String definition;
   private String partOfSpeech;
   private List<String> examples;

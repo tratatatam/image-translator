@@ -35,7 +35,7 @@ public class OcrServiceImpl implements OcrService {
       ImageToTextResponse imageToTextResponse = imageOcrApi
           .imageOcrPhotoToText(tempFilePath.toFile(), "Auto", "ENG");
       ImageText imageText = new ImageText();
-      imageText.setText(imageToTextResponse.getTextResult());
+      imageText.setImageText(imageToTextResponse.getTextResult());
       Image created = imageRepo.save(image);
       imageText.setImageId(created.getId());
       return Optional.of(imageText);

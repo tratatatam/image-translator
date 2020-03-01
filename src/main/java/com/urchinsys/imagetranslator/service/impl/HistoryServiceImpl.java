@@ -1,24 +1,22 @@
 package com.urchinsys.imagetranslator.service.impl;
 
 import com.urchinsys.imagetranslator.entity.History;
+import com.urchinsys.imagetranslator.entity.WordDefinition;
 import com.urchinsys.imagetranslator.repository.HistoryRepo;
 import com.urchinsys.imagetranslator.service.HistoryService;
+import lombok.NonNull;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-import javax.validation.constraints.NotEmpty;
-import lombok.NonNull;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 @Service
 public class HistoryServiceImpl implements HistoryService {
 
   private final HistoryRepo historyRepo;
-  private final ModelMapper modelMapper;
 
-  public HistoryServiceImpl(HistoryRepo historyRepo, ModelMapper modelMapper) {
+  public HistoryServiceImpl(HistoryRepo historyRepo) {
     this.historyRepo = historyRepo;
-    this.modelMapper = modelMapper;
   }
 
   @Override
@@ -27,10 +25,10 @@ public class HistoryServiceImpl implements HistoryService {
   }
 
   @Override
-  public History update(@NonNull History history, @NotEmpty String id) {
+  public History update(String id, List<WordDefinition> words) {
     Optional<History> founded = historyRepo.findById(id);
     History persisted = founded.orElseThrow(IllegalArgumentException::new);
-    modelMapper.map(history, persisted);
+    persisted.getWords().addAll(words);
     return historyRepo.save(persisted);
   }
 
@@ -49,10 +47,5 @@ public class HistoryServiceImpl implements HistoryService {
   @Override
   public List<History> getAll() {
     return historyRepo.findAll();
-  }
-
-  @Override
-  public List<History> getByCollection(String collection) {
-    return historyRepo.findAllByCollection(collection);
   }
 }

@@ -1,6 +1,6 @@
 package com.urchinsys.imagetranslator.controller;
 
-import com.urchinsys.imagetranslator.entity.Text;
+import com.urchinsys.imagetranslator.entity.TextToTranslate;
 import com.urchinsys.imagetranslator.entity.Translation;
 import com.urchinsys.imagetranslator.service.TranslateService;
 import java.util.Optional;
@@ -21,9 +21,9 @@ public class TextController {
   }
 
   @RequestMapping(path = "translate", method = RequestMethod.POST)
-  public ResponseEntity<Translation> uploadImage(@RequestBody Text text)
+  public ResponseEntity<Translation> uploadImage(@RequestBody TextToTranslate textToTranslate)
       throws NotFoundException {
-    Optional<Translation> translation = translateService.translate(text);
+    Optional<Translation> translation = translateService.translate(textToTranslate);
     return translation.map(ResponseEntity::ok).orElseThrow(NotFoundException::new);
   }
 }
