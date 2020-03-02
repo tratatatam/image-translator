@@ -1,6 +1,7 @@
 package com.urchinsys.imagetranslator.controller;
 
 import com.urchinsys.imagetranslator.entity.History;
+import com.urchinsys.imagetranslator.entity.WordDefinition;
 import com.urchinsys.imagetranslator.service.HistoryService;
 import java.util.List;
 import java.util.Optional;
@@ -31,14 +32,8 @@ public class HistoryController {
     return new ResponseEntity<>(persisted, HttpStatus.OK);
   }
 
-  @GetMapping(path = "collection/{name}")
-  public ResponseEntity<List<History>> getAllHistory(@PathVariable String name) {
-    List<History> persisted = historyService.getByCollection(name);
-    return new ResponseEntity<>(persisted, HttpStatus.OK);
-  }
-
   @GetMapping(path = "{id}")
-  public ResponseEntity<History> getHistory(@PathVariable String id) {
+  public ResponseEntity<History> getHistoryById(@PathVariable String id) {
     Optional<History> persisted = historyService.get(id);
     return persisted.map(ResponseEntity::ok).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
@@ -49,9 +44,9 @@ public class HistoryController {
     return ResponseEntity.ok(created);
   }
 
-  @PutMapping
-  public ResponseEntity<History> updateHistory(@RequestBody History history, @PathVariable String id) {
-    History updated = historyService.update(history, id);
+  @PutMapping(path = "{id}")
+  public ResponseEntity<History> updateHistoryWords(@PathVariable String id, @RequestBody List<WordDefinition> words) {
+    History updated = historyService.update(id, words);
     return ResponseEntity.ok(updated);
   }
 

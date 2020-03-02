@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @JsonInclude(Include.NON_EMPTY)
 public class ImageText {
-  String text;
   String imageId;
+  String imageText;
 }

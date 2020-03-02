@@ -7,18 +7,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @JsonInclude(Include.NON_EMPTY)
-@Document(collection = "history")
+@Document(collection = "history_v2")
 public class History {
-
   @Id
   private String id;
-  private String imageText;
-  private String translation;
-  private WordDefinition wordMeaning;
-  private String url;
   private String imageId;
-  @Indexed(unique = true)
-  private String collection;
+  private String imageText;
+  private String imageTextTranslation;
+  private String url;
+  private List<WordDefinition> words;
 }
